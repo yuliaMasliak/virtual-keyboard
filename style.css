@@ -1,0 +1,55 @@
+header,
+.kyeboard__block {
+  margin: 0px auto;
+  text-align: center;
+}
+
+.textarea-block {
+  margin: 0px auto;
+  width: 80vw;
+  text-align: center;
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+textarea {
+  min-width: 75vw;
+  min-height: 15vw;
+}
+.kyeboard__block {
+  min-width: 1085px;
+  padding: 20px;
+  margin: 0px auto;
+  background-color: rgb(197, 197, 197);
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  column-gap: 5px;
+  row-gap: 5px;
+  flex-wrap: wrap;
+}
+.keyboard__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid black;
+  border-radius: 5px;
+  font-size: 20px;
+  text-align: center;
+  width: 60px;
+  height: 60px;
+}
+.keyboard__item:hover {
+  border: 2px solid #eeeeee;
+}
+.backspace {
+  width: 150px;
+}
+.tab {
+  width: 80px;
+}
+.caps-lock {
+  width: 140px;
+}
+.enter {
+  width: 140px;
+}
