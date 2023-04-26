@@ -1,4 +1,4 @@
-import { KEYS_ENG, KEYS_RUS } from './environments.js';
+import { KEYS_ENG, KEYS_UA } from './environments.js';
 
 export const ADD_APP_HEADING = () => {
   const TITLE = document.createElement('h1');
@@ -86,8 +86,8 @@ let language = 'ENG';
 
 export function switchLanguage() {
   if (language === 'ENG') {
-    language = 'RUS';
-    renderKeyboard(KEYS_RUS);
+    language = 'UA';
+    renderKeyboard(KEYS_UA);
   } else {
     renderKeyboard(KEYS_ENG);
     language = 'ENG';
