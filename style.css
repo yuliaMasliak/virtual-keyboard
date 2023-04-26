@@ -16,7 +16,7 @@ textarea {
   min-height: 15vw;
 }
 .kyeboard__block {
-  min-width: 1085px;
+  width: 1085px;
   padding: 20px;
   margin: 0px auto;
   background-color: rgb(197, 197, 197);
@@ -50,6 +50,18 @@ textarea {
 .caps-lock {
   width: 140px;
 }
+.kyeboard__block > .shift {
+  width: 155px;
+}
+.kyeboard__block > .shift ~ .shift {
+  width: 60px;
+}
 .enter {
   width: 140px;
+}
+.ctrl {
+  width: 90px;
+}
+.spacebar {
+  width: 440px;
 }

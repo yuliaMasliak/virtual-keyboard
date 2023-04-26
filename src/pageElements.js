@@ -31,6 +31,15 @@ export const ADD_KEYBOARD_ENG = () => {
     if (key === 'Enter') {
       KEY_ITEM.classList.add('enter');
     }
+    if (key === 'Shift') {
+      KEY_ITEM.classList.add('shift');
+    }
+    if (key === 'Ctrl') {
+      KEY_ITEM.classList.add('ctrl');
+    }
+    if (key === '') {
+      KEY_ITEM.classList.add('spacebar');
+    }
     KEY_ITEM.classList.add('keyboard__item');
     KEY_ITEM.innerHTML = key;
     KEYBOARD_BLOCK.append(KEY_ITEM);
