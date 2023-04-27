@@ -6,7 +6,7 @@ export const ADD_APP_HEADING = () => {
   TITLE.innerHTML = 'RSS Virtual Keyboard';
   const SUB_TITLE = document.createElement('div');
   SUB_TITLE.classList.add('sub-title');
-  SUB_TITLE.innerHTML = 'Created on Windows OS <br> To switch between ENG / RUS press CTRL + SHIFT';
+  SUB_TITLE.innerHTML = 'Created on Windows OS <br> To switch between ENG / UA press CTRL + SHIFT';
   const MAIN = document.createElement('main');
   const TEXTAREA_BLOCK = document.createElement('div');
   TEXTAREA_BLOCK.classList.add('textarea-block');
