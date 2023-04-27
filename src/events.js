@@ -46,10 +46,13 @@ export function keyDownEvent(event) {
     for (let code of CODES) {
       if (KEY_CODE === code && !FUNC_KEYS.includes(code)) {
         ALL_KEYS.forEach((el) => {
-          if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code)) {
+          if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code) && event.shiftKey) {
+            SCREEN.innerHTML += el.innerHTML.toUpperCase();
+          } else if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code)) {
             if (!isCapsLocked) {
               SCREEN.innerHTML += el.innerHTML.toLowerCase();
-            } else {
+            } else if (isCapsLocked || event.shiftKey) {
+              console.log(event.shiftKey);
               SCREEN.innerHTML += el.innerHTML.toUpperCase();
             }
           } else if (
