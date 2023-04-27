@@ -1,4 +1,5 @@
 import { KEYS_ENG, KEYS_UA } from './environments.js';
+import { mouseEvents } from './events.js';
 
 export const ADD_APP_HEADING = () => {
   const TITLE = document.createElement('h1');
@@ -64,6 +65,7 @@ export function renderKeyboard(lang) {
       KEY_ITEM.classList.add('dark');
     }
     KEY_ITEM.classList.add('keyboard__item');
+    KEY_ITEM.id = i;
     KEY_ITEM.innerHTML = key;
     if (Array.isArray(key)) {
       const ARR = key[0].split('');
@@ -81,6 +83,7 @@ export function renderKeyboard(lang) {
     KEYBOARD_BLOCK.append(KEY_ITEM);
   });
   CONTAINER.append(KEYBOARD_BLOCK);
+  mouseEvents();
 }
 let language = 'ENG';
 
