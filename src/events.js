@@ -62,22 +62,32 @@ export function mouseEvents() {
     playClick();
     let isFunctionalKey = false;
     const EL = document.getElementById(event.target.id);
-    try {
-      EL.classList.add('active');
-      ARR_OF_FUNC_KEYS.forEach((elem) => {
-        elem == event.target.innerHTML ? (isFunctionalKey = true) : '';
-      });
-      if (event.target.innerHTML === 'Backspace') {
-        SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
-      } else if (event.target.innerHTML === '') {
-        SCREEN.innerHTML += ' ';
-      } else if (event.target.innerHTML === 'Enter') {
-        SCREEN.innerHTML += '\n';
-      } else if (!isFunctionalKey) {
-        SCREEN.innerHTML += event.target.innerHTML.toLowerCase();
+    if (+event.target.id > 12) {
+      try {
+        EL.classList.add('active');
+        ARR_OF_FUNC_KEYS.forEach((elem) => {
+          elem == event.target.innerHTML ? (isFunctionalKey = true) : '';
+        });
+        if (event.target.innerHTML === 'Backspace') {
+          SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
+        } else if (event.target.innerHTML === '') {
+          SCREEN.innerHTML += ' ';
+        } else if (event.target.innerHTML === 'Enter') {
+          SCREEN.innerHTML += '\n';
+        } else if (!isFunctionalKey) {
+          SCREEN.innerHTML += event.target.innerHTML.toLowerCase();
+        }
+      } catch (err) {
+        console.log("Didn't hit the keyboard key");
       }
-    } catch (err) {
-      console.log("Didn't hit the keyboard key");
+    } else {
+      const PARENT_IDS = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12'];
+      PARENT_IDS.forEach((el) => {
+        if (event.target.parentElement.id == el) {
+          event.target.parentElement.classList.add('active');
+          SCREEN.innerHTML += event.target.parentElement.children[1].innerHTML;
+        }
+      });
     }
   });
   KEYBOARD.addEventListener('mouseup', () => {
