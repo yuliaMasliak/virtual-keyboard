@@ -51,8 +51,7 @@ export function keyDownEvent(event) {
           } else if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code)) {
             if (!isCapsLocked) {
               SCREEN.innerHTML += el.innerHTML.toLowerCase();
-            } else if (isCapsLocked || event.shiftKey) {
-              console.log(event.shiftKey);
+            } else if (isCapsLocked) {
               SCREEN.innerHTML += el.innerHTML.toUpperCase();
             }
           } else if (
@@ -60,8 +59,13 @@ export function keyDownEvent(event) {
             el.id == CODES.indexOf(code) &&
             code !== 'Backquote'
           ) {
-            const ELEMS = document.getElementById(CODES.indexOf(code)).children;
-            SCREEN.innerHTML += ELEMS[1].innerHTML;
+            if (event.shiftKey) {
+              const ELEMS = document.getElementById(CODES.indexOf(code)).children;
+              SCREEN.innerHTML += ELEMS[0].innerHTML;
+            } else {
+              const ELEMS = document.getElementById(CODES.indexOf(code)).children;
+              SCREEN.innerHTML += ELEMS[1].innerHTML;
+            }
           }
         });
       }
