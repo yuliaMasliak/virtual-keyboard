@@ -22,8 +22,16 @@ export function keyDownEvent(event) {
     SCREEN.innerHTML += '`';
   } else if (event.code === 'Backspace') {
     SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
+  } else if (event.code === 'Delete') {
+    const CURSOR_Index = SCREEN.selectionEnd;
+    const ARR = SCREEN.innerHTML.split('');
+    delete ARR[CURSOR_Index];
+    SCREEN.innerHTML = ARR.join('');
+    SCREEN.selectionStart = CURSOR_Index;
   } else if (event.code === 'Space') {
     SCREEN.innerHTML += ' ';
+  } else if (event.code === 'Tab') {
+    SCREEN.innerHTML += '    ';
   } else if (event.code === 'Enter') {
     SCREEN.innerHTML += '\n';
   } else {
@@ -70,8 +78,16 @@ export function mouseEvents() {
         });
         if (event.target.innerHTML === 'Backspace') {
           SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
+        } else if (event.target.innerHTML === 'DEL') {
+          const CURSOR_Index = SCREEN.selectionEnd;
+          const ARR = SCREEN.innerHTML.split('');
+          delete ARR[CURSOR_Index];
+          SCREEN.innerHTML = ARR.join('');
+          SCREEN.selectionStart = CURSOR_Index;
         } else if (event.target.innerHTML === '') {
           SCREEN.innerHTML += ' ';
+        } else if (event.target.innerHTML === 'Tab') {
+          SCREEN.innerHTML += '    ';
         } else if (event.target.innerHTML === 'Enter') {
           SCREEN.innerHTML += '\n';
         } else if (!isFunctionalKey) {
