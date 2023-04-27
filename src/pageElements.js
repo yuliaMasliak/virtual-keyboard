@@ -1,5 +1,5 @@
 import { KEYS_ENG, KEYS_UA } from './environments.js';
-import { mouseEvents } from './events.js';
+import { mouseEvents, keyDownEvent, keyUpEvent } from './events.js';
 
 export const ADD_APP_HEADING = () => {
   const TITLE = document.createElement('h1');
@@ -21,9 +21,11 @@ export function renderKeyboard(lang) {
   const CONTAINER = document.querySelector('.keyboard-container');
   CONTAINER.innerHTML = '';
   const KEYBOARD_BLOCK = document.createElement('div');
+
   KEYBOARD_BLOCK.classList.add('kyeboard__block');
   lang.forEach((key, i) => {
     const KEY_ITEM = document.createElement('div');
+
     if (key === 'Backspace') {
       KEY_ITEM.classList.add('backspace');
       KEY_ITEM.classList.add('dark');
@@ -82,26 +84,23 @@ export function renderKeyboard(lang) {
     }
     KEYBOARD_BLOCK.append(KEY_ITEM);
   });
+
   CONTAINER.append(KEYBOARD_BLOCK);
+  document.onkeydown = keyDownEvent;
+  document.onkeyup = keyUpEvent;
   mouseEvents();
 }
-let language = 'ENG';
 
 export function switchLanguage() {
-  if (language === 'ENG') {
-    language = 'UA';
-    renderKeyboard(KEYS_UA);
+  if (localStorage.getItem('lang') == 'ENG') {
+    localStorage.setItem('lang', 'UA');
+    ADD_KEYBOARD();
   } else {
-    renderKeyboard(KEYS_ENG);
-    language = 'ENG';
+    localStorage.setItem('lang', 'ENG');
+    ADD_KEYBOARD();
   }
-  return language;
 }
-document.addEventListener('keydown', (event) => {
-  if (event.ctrlKey && event.shiftKey) {
-    switchLanguage();
-  }
-});
+
 export const ADD_KEYBOARD = () => {
-  renderKeyboard(KEYS_ENG);
+  localStorage.getItem('lang') == 'UA' ? renderKeyboard(KEYS_UA) : renderKeyboard(KEYS_ENG);
 };
