@@ -7,7 +7,7 @@ export function keyDownEvent(event) {
   const ALL_KEYS = document.querySelectorAll('.keyboard__item');
   const KEY_CODE = event.code;
   ALL_KEYS.forEach((el) => {
-    if (el.id == CODES[event.code]) {
+    if (el.id == CODES.indexOf(event.code)) {
       el.classList.add('active');
     }
   });
@@ -18,10 +18,10 @@ export function keyDownEvent(event) {
   } else if (event.code === 'Space') {
     SCREEN.innerHTML += ' ';
   } else {
-    for (let code in CODES) {
+    for (let code of CODES) {
       if (KEY_CODE === code && !FUNC_KEYS.includes(code)) {
         ALL_KEYS.forEach((el) => {
-          if (el.id == CODES[code]) {
+          if (el.id == CODES.indexOf(code)) {
             SCREEN.innerHTML += el.innerHTML.toLowerCase();
           }
         });
