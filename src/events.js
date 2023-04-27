@@ -17,6 +17,8 @@ export function keyDownEvent(event) {
     SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
   } else if (event.code === 'Space') {
     SCREEN.innerHTML += ' ';
+  } else if (event.code === 'Enter') {
+    SCREEN.innerHTML += '\n';
   } else {
     for (let code of CODES) {
       if (KEY_CODE === code && !FUNC_KEYS.includes(code)) {
@@ -54,6 +56,8 @@ export function mouseEvents() {
         SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
       } else if (event.target.innerHTML === '') {
         SCREEN.innerHTML += ' ';
+      } else if (event.target.innerHTML === 'Enter') {
+        SCREEN.innerHTML += '\n';
       } else if (!isFunctionalKey) {
         SCREEN.innerHTML += event.target.innerHTML.toLowerCase();
       }
