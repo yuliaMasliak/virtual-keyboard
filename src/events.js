@@ -1,26 +1,31 @@
-import { CODES } from './environments.js';
+import { CODES, FUNC_KEYS } from './environments.js';
 import { switchLanguage } from './pageElements.js';
 
 export function keyDownEvent(event) {
-  const KEYBOARD = document.querySelector('.kyeboard__block');
+  event.preventDefault();
   const SCREEN = document.querySelector('textarea');
   const ALL_KEYS = document.querySelectorAll('.keyboard__item');
   const KEY_CODE = event.code;
+  ALL_KEYS.forEach((el) => {
+    if (el.id == CODES[event.code]) {
+      el.classList.add('active');
+    }
+  });
   if (event.ctrlKey && event.shiftKey) {
-    console.log('lang');
     switchLanguage();
-  }
-  for (let code in CODES) {
-    if (event.code === 'Backspace' && code === 'Backspace') {
-      ALL_KEYS[CODES[code]].classList.add('active');
-      SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
-    } else if (KEY_CODE === code) {
-      ALL_KEYS.forEach((el) => {
-        if (el.id == CODES[code]) {
-          el.classList.add('active');
-          SCREEN.innerHTML += el.innerHTML.toLowerCase();
-        }
-      });
+  } else if (event.code === 'Backspace') {
+    SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
+  } else if (event.code === 'Space') {
+    SCREEN.innerHTML += ' ';
+  } else {
+    for (let code in CODES) {
+      if (KEY_CODE === code && !FUNC_KEYS.includes(code)) {
+        ALL_KEYS.forEach((el) => {
+          if (el.id == CODES[code]) {
+            SCREEN.innerHTML += el.innerHTML.toLowerCase();
+          }
+        });
+      }
     }
   }
 }
@@ -34,13 +39,26 @@ export function keyUpEvent() {
 export function mouseEvents() {
   const SCREEN = document.querySelector('textarea');
   const KEYBOARD = document.querySelector('.kyeboard__block');
+
+  const ARR_OF_FUNC_KEYS = ['Tab', 'Caps Lock', 'Shift', 'Ctrl', 'Win', 'Alt', 'DEL', 'Enter'];
+
   KEYBOARD.addEventListener('mousedown', (event) => {
+    let isFunctionalKey = false;
     const EL = document.getElementById(event.target.id);
-    EL.classList.add('active');
-    if (event.target.innerHTML === 'Backspace') {
-      SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
-    } else {
-      SCREEN.innerHTML += event.target.innerHTML.toLowerCase();
+    try {
+      EL.classList.add('active');
+      ARR_OF_FUNC_KEYS.forEach((elem) => {
+        elem == event.target.innerHTML ? (isFunctionalKey = true) : '';
+      });
+      if (event.target.innerHTML === 'Backspace') {
+        SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
+      } else if (event.target.innerHTML === '') {
+        SCREEN.innerHTML += ' ';
+      } else if (!isFunctionalKey) {
+        SCREEN.innerHTML += event.target.innerHTML.toLowerCase();
+      }
+    } catch (err) {
+      console.log("Didn't hit the keyboard key");
     }
   });
   KEYBOARD.addEventListener('mouseup', () => {
