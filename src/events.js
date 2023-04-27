@@ -1,10 +1,15 @@
-import { CODES, FUNC_KEYS } from './environments.js';
+import { CODES, FUNC_KEYS, AUDIO_CLICK } from './environments.js';
 import { switchLanguage } from './pageElements.js';
+
+function playClick() {
+  AUDIO_CLICK.play();
+}
 
 export function keyDownEvent(event) {
   event.preventDefault();
   const SCREEN = document.querySelector('textarea');
   const ALL_KEYS = document.querySelectorAll('.keyboard__item');
+  playClick();
   const KEY_CODE = event.code;
   ALL_KEYS.forEach((el) => {
     if (el.id == CODES.indexOf(event.code)) {
@@ -13,6 +18,8 @@ export function keyDownEvent(event) {
   });
   if (event.ctrlKey && event.shiftKey) {
     switchLanguage();
+  } else if (CODES.indexOf(event.code) === 0) {
+    SCREEN.innerHTML += '`';
   } else if (event.code === 'Backspace') {
     SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
   } else if (event.code === 'Space') {
@@ -22,9 +29,17 @@ export function keyDownEvent(event) {
   } else {
     for (let code of CODES) {
       if (KEY_CODE === code && !FUNC_KEYS.includes(code)) {
+        console.log(code);
         ALL_KEYS.forEach((el) => {
-          if (el.id == CODES.indexOf(code)) {
+          if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code)) {
             SCREEN.innerHTML += el.innerHTML.toLowerCase();
+          } else if (
+            CODES.indexOf(code) <= 12 &&
+            el.id == CODES.indexOf(code) &&
+            code !== 'Backquote'
+          ) {
+            const ELEMS = document.getElementById(CODES.indexOf(code)).children;
+            SCREEN.innerHTML += ELEMS[1].innerHTML;
           }
         });
       }
@@ -41,10 +56,10 @@ export function keyUpEvent() {
 export function mouseEvents() {
   const SCREEN = document.querySelector('textarea');
   const KEYBOARD = document.querySelector('.kyeboard__block');
-
   const ARR_OF_FUNC_KEYS = ['Tab', 'Caps Lock', 'Shift', 'Ctrl', 'Win', 'Alt', 'DEL', 'Enter'];
 
   KEYBOARD.addEventListener('mousedown', (event) => {
+    playClick();
     let isFunctionalKey = false;
     const EL = document.getElementById(event.target.id);
     try {

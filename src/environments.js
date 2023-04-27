@@ -1,3 +1,7 @@
+export const AUDIO_CLICK = new Audio(
+  'https://notification-sounds.com/soundsfiles/Button-click-sound.mp3'
+);
+
 export const CODES = [
   'Backquote',
   'Digit1',
