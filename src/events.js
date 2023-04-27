@@ -4,13 +4,14 @@ import { switchLanguage } from './pageElements.js';
 function playClick() {
   AUDIO_CLICK.play();
 }
-
+let isCapsLocked = false;
 export function keyDownEvent(event) {
   event.preventDefault();
   const SCREEN = document.querySelector('textarea');
   const ALL_KEYS = document.querySelectorAll('.keyboard__item');
   playClick();
   const KEY_CODE = event.code;
+
   ALL_KEYS.forEach((el) => {
     if (el.id == CODES.indexOf(event.code)) {
       el.classList.add('active');
@@ -18,6 +19,13 @@ export function keyDownEvent(event) {
   });
   if (event.ctrlKey && event.shiftKey) {
     switchLanguage();
+  } else if (event.code === 'CapsLock') {
+    isCapsLocked = !isCapsLocked;
+    if (isCapsLocked) {
+      document.getElementById('29').classList.add('capslocked');
+    } else {
+      document.getElementById('29').classList.remove('capslocked');
+    }
   } else if (CODES.indexOf(event.code) === 0) {
     SCREEN.innerHTML += '`';
   } else if (event.code === 'Backspace') {
@@ -37,10 +45,13 @@ export function keyDownEvent(event) {
   } else {
     for (let code of CODES) {
       if (KEY_CODE === code && !FUNC_KEYS.includes(code)) {
-        console.log(code);
         ALL_KEYS.forEach((el) => {
           if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code)) {
-            SCREEN.innerHTML += el.innerHTML.toLowerCase();
+            if (!isCapsLocked) {
+              SCREEN.innerHTML += el.innerHTML.toLowerCase();
+            } else {
+              SCREEN.innerHTML += el.innerHTML.toUpperCase();
+            }
           } else if (
             CODES.indexOf(code) <= 12 &&
             el.id == CODES.indexOf(code) &&
@@ -70,6 +81,15 @@ export function mouseEvents() {
     playClick();
     let isFunctionalKey = false;
     const EL = document.getElementById(event.target.id);
+
+    if (event.target.id === '29') {
+      isCapsLocked = !isCapsLocked;
+      if (isCapsLocked) {
+        document.getElementById('29').classList.add('capslocked');
+      } else {
+        document.getElementById('29').classList.remove('capslocked');
+      }
+    }
     if (+event.target.id > 12) {
       try {
         EL.classList.add('active');
@@ -91,7 +111,11 @@ export function mouseEvents() {
         } else if (event.target.innerHTML === 'Enter') {
           SCREEN.innerHTML += '\n';
         } else if (!isFunctionalKey) {
-          SCREEN.innerHTML += event.target.innerHTML.toLowerCase();
+          if (!isCapsLocked) {
+            SCREEN.innerHTML += event.target.innerHTML.toLowerCase();
+          } else {
+            SCREEN.innerHTML += event.target.innerHTML.toUpperCase();
+          }
         }
       } catch (err) {
         console.log("Didn't hit the keyboard key");
