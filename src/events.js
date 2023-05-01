@@ -1,4 +1,11 @@
-import { CODES, FUNC_KEYS, AUDIO_CLICK, CAPS_LOCK_id, Backquote } from './environments.js';
+import {
+  CODES,
+  FUNC_KEYS,
+  AUDIO_CLICK,
+  CAPS_LOCK_id,
+  Backquote,
+  TEXTAREA_COLS,
+} from './environments.js';
 import { switchLanguage } from './pageElements.js';
 
 function playClick() {
@@ -38,7 +45,12 @@ export function keyDownEvent(event) {
     addCharacter('    ');
   } else if (event.code === 'Enter') {
     addCharacter('&#13;');
-  } else if (event.code === 'ArrowRight' || event.code === 'ArrowLeft') {
+  } else if (
+    event.code === 'ArrowRight' ||
+    event.code === 'ArrowLeft' ||
+    event.code == 'ArrowUp' ||
+    event.code == 'ArrowDown'
+  ) {
     move(event.code);
   } else {
     for (let code of CODES) {
@@ -83,7 +95,11 @@ export function mouseEvents() {
   const ARR_OF_FUNC_KEYS = ['Tab', 'Caps Lock', 'Shift', 'Ctrl', 'Win', 'Alt', 'DEL', 'Enter'];
 
   KEYBOARD.addEventListener('mousedown', (event) => {
+    const SCREEN = document.querySelector('textarea');
     playClick();
+    event.preventDefault();
+    SCREEN.focus();
+
     let isFunctionalKey = false;
     const EL = document.getElementById(event.target.id);
 
@@ -116,6 +132,10 @@ export function mouseEvents() {
           move('ArrowRight');
         } else if (event.target.innerHTML === '⇐') {
           move('ArrowLeft');
+        } else if (event.target.innerHTML === '⇑') {
+          move('ArrowUp');
+        } else if (event.target.innerHTML === '⇓') {
+          move('ArrowDown');
         } else if (!isFunctionalKey) {
           if (!isCapsLocked) {
             addCharacter(event.target.innerHTML.toLowerCase());
@@ -169,14 +189,28 @@ function addCharacter(character) {
   SCREEN.selectionStart = CURSOR_Index + 1;
   SCREEN.scrollTop = SCREEN.scrollHeight;
 }
-function move(diarection) {
-  if (diarection == 'ArrowLeft') {
+function move(direction) {
+  if (direction == 'ArrowLeft') {
     const SCREEN = document.querySelector('textarea');
     let CURSOR_Index = SCREEN.selectionStart;
-    SCREEN.selectionEnd = CURSOR_Index - 1;
-  } else if (diarection == 'ArrowRight') {
+    if (CURSOR_Index > 0) {
+      SCREEN.selectionEnd = CURSOR_Index - 1;
+    }
+  } else if (direction == 'ArrowRight') {
     const SCREEN = document.querySelector('textarea');
     let CURSOR_Index = SCREEN.selectionEnd;
     SCREEN.selectionStart = CURSOR_Index + 1;
+  } else if (direction == 'ArrowDown') {
+    const SCREEN = document.querySelector('textarea');
+    let CURSOR_Index = SCREEN.selectionEnd;
+    if (CURSOR_Index < TEXTAREA_COLS) {
+      SCREEN.selectionStart = CURSOR_Index + TEXTAREA_COLS;
+    }
+  } else if (direction == 'ArrowUp') {
+    const SCREEN = document.querySelector('textarea');
+    let CURSOR_Index = SCREEN.selectionStart;
+    if (CURSOR_Index >= TEXTAREA_COLS) {
+      SCREEN.selectionEnd = CURSOR_Index - TEXTAREA_COLS;
+    }
   }
 }

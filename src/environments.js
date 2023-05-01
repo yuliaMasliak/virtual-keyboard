@@ -210,3 +210,4 @@ export const KEYS_UA = [
 
 export const CAPS_LOCK_id = '29';
 export const Backquote = 0;
+export const TEXTAREA_COLS = 30;

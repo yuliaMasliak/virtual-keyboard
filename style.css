@@ -24,7 +24,6 @@ h1 {
   scroll-snap-type: y proximity;
 }
 textarea {
-  width: 1085px;
   resize: none;
   padding: 20px;
   font-size: 26px;

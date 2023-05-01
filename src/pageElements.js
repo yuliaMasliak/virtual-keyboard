@@ -1,4 +1,4 @@
-import { KEYS_ENG, KEYS_UA } from './environments.js';
+import { KEYS_ENG, KEYS_UA, TEXTAREA_COLS } from './environments.js';
 import { mouseEvents, keyDownEvent, keyUpEvent } from './events.js';
 
 export const ADD_APP_HEADING = () => {
@@ -11,7 +11,8 @@ export const ADD_APP_HEADING = () => {
   const TEXTAREA_BLOCK = document.createElement('div');
   TEXTAREA_BLOCK.classList.add('textarea-block');
   const TEXTAREA = document.createElement('textarea');
-  TEXTAREA.setAttribute('rows', '3');
+  TEXTAREA.setAttribute('rows', '4');
+  TEXTAREA.setAttribute('cols', TEXTAREA_COLS);
   TEXTAREA_BLOCK.append(TEXTAREA);
   const KEYBOARD_CONTAINER = document.createElement('div');
   KEYBOARD_CONTAINER.classList.add('keyboard-container');
