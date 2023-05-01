@@ -28,32 +28,28 @@ export function keyDownEvent(event) {
       CAPSLOCK.classList.remove('capslocked');
     }
   } else if (CODES.indexOf(event.code) === Backquote) {
-    const TEXT =
-      SCREEN.value.slice(0, SCREEN.selectionStart) +
-      '`' +
-      SCREEN.value.slice(SCREEN.selectionStart);
-    SCREEN.innerHTML = TEXT;
+    addCharacter('`');
   } else if (event.code === 'Backspace') {
     backspaceCharacter();
   } else if (event.code === 'Delete') {
     deleteCharacter();
   } else if (event.code === 'Space') {
-    SCREEN.innerHTML += ' ';
+    addCharacter(' ');
   } else if (event.code === 'Tab') {
-    SCREEN.innerHTML += '    ';
+    addCharacter('    ');
   } else if (event.code === 'Enter') {
-    SCREEN.innerHTML += '\n';
+    addCharacter('\n');
   } else {
     for (let code of CODES) {
       if (KEY_CODE === code && !FUNC_KEYS.includes(code)) {
         ALL_KEYS.forEach((el) => {
           if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code) && event.shiftKey) {
-            SCREEN.innerHTML += el.innerHTML.toUpperCase();
+            addCharacter(el.innerHTML.toUpperCase());
           } else if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code)) {
             if (!isCapsLocked) {
-              SCREEN.innerHTML += el.innerHTML.toLowerCase();
+              addCharacter(el.innerHTML.toLowerCase());
             } else if (isCapsLocked) {
-              SCREEN.innerHTML += el.innerHTML.toUpperCase();
+              addCharacter(el.innerHTML.toUpperCase());
             }
           } else if (
             CODES.indexOf(code) <= 12 &&
@@ -62,10 +58,10 @@ export function keyDownEvent(event) {
           ) {
             if (event.shiftKey) {
               const ELEMS = document.getElementById(CODES.indexOf(code)).children;
-              SCREEN.innerHTML += ELEMS[0].innerHTML;
+              addCharacter(ELEMS[0].innerHTML);
             } else {
               const ELEMS = document.getElementById(CODES.indexOf(code)).children;
-              SCREEN.innerHTML += ELEMS[1].innerHTML;
+              addCharacter(ELEMS[1].innerHTML);
             }
           }
         });
@@ -110,16 +106,16 @@ export function mouseEvents() {
         } else if (event.target.innerHTML === 'DEL') {
           deleteCharacter();
         } else if (event.target.innerHTML === '') {
-          SCREEN.innerHTML += ' ';
+          addCharacter(' ');
         } else if (event.target.innerHTML === 'Tab') {
-          SCREEN.innerHTML += '    ';
+          addCharacter('    ');
         } else if (event.target.innerHTML === 'Enter') {
-          SCREEN.innerHTML += '\n';
+          addCharacter('\n');
         } else if (!isFunctionalKey) {
           if (!isCapsLocked) {
-            SCREEN.innerHTML += event.target.innerHTML.toLowerCase();
+            addCharacter(event.target.innerHTML.toLowerCase());
           } else {
-            SCREEN.innerHTML += event.target.innerHTML.toUpperCase();
+            addCharacter(event.target.innerHTML.toUpperCase());
           }
         }
       } catch (err) {
@@ -130,7 +126,7 @@ export function mouseEvents() {
       PARENT_IDS.forEach((el) => {
         if (event.target.parentElement.id == el) {
           event.target.parentElement.classList.add('active');
-          SCREEN.innerHTML += event.target.parentElement.children[1].innerHTML;
+          addCharacter(event.target.parentElement.children[1].innerHTML);
         }
       });
     }
@@ -158,4 +154,12 @@ function backspaceCharacter() {
   delete ARR[CURSOR_Index - 1];
   SCREEN.innerHTML = ARR.join('');
   SCREEN.selectionStart = CURSOR_Index - 1;
+}
+function addCharacter(character) {
+  const SCREEN = document.querySelector('textarea');
+  const CURSOR_Index = SCREEN.selectionEnd;
+  const ARR = SCREEN.innerHTML.split('');
+  ARR.splice(SCREEN.selectionEnd, 0, character);
+  SCREEN.innerHTML = ARR.join('');
+  SCREEN.selectionStart = CURSOR_Index + 1;
 }
