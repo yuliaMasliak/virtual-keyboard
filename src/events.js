@@ -167,6 +167,7 @@ function addCharacter(character) {
   ARR.splice(SCREEN.selectionEnd, 0, character);
   SCREEN.innerHTML = ARR.join('');
   SCREEN.selectionStart = CURSOR_Index + 1;
+  SCREEN.scrollTop = SCREEN.scrollHeight;
 }
 function move(diarection) {
   if (diarection == 'ArrowLeft') {
