@@ -37,7 +37,7 @@ export function keyDownEvent(event) {
   } else if (event.code === 'Tab') {
     addCharacter('    ');
   } else if (event.code === 'Enter') {
-    addCharacter('\n');
+    addCharacter('&#13;');
   } else if (event.code === 'ArrowRight' || event.code === 'ArrowLeft') {
     move(event.code);
   } else {

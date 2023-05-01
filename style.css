@@ -18,21 +18,20 @@ h1 {
 
 .textarea-block {
   margin: 0px auto;
-
   text-align: center;
   margin-top: 15px;
   margin-bottom: 15px;
+  scroll-snap-type: y proximity;
 }
 textarea {
   width: 1085px;
-  min-height: 7vw;
   resize: none;
   padding: 20px;
   font-size: 26px;
   border-radius: 6px;
   border: none;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
-  overflow-y: auto;
+  scroll-snap-align: end;
 }
 .kyeboard__block {
   width: 1085px;
