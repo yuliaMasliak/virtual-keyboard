@@ -1,4 +1,4 @@
-import { CODES, FUNC_KEYS, AUDIO_CLICK, CAPS_LOCK_id } from './environments.js';
+import { CODES, FUNC_KEYS, AUDIO_CLICK, CAPS_LOCK_id, Backquote } from './environments.js';
 import { switchLanguage } from './pageElements.js';
 
 function playClick() {
@@ -13,7 +13,7 @@ export function keyDownEvent(event) {
   const KEY_CODE = event.code;
 
   ALL_KEYS.forEach((el) => {
-    if (el.id == CODES.indexOf(event.code)) {
+    if (!el.className.includes('reset') && el.id == CODES.indexOf(event.code)) {
       el.classList.add('active');
     }
   });
@@ -27,16 +27,16 @@ export function keyDownEvent(event) {
     } else {
       CAPSLOCK.classList.remove('capslocked');
     }
-  } else if (CODES.indexOf(event.code) === 0) {
-    SCREEN.innerHTML += '`';
+  } else if (CODES.indexOf(event.code) === Backquote) {
+    const TEXT =
+      SCREEN.value.slice(0, SCREEN.selectionStart) +
+      '`' +
+      SCREEN.value.slice(SCREEN.selectionStart);
+    SCREEN.innerHTML = TEXT;
   } else if (event.code === 'Backspace') {
-    SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
+    backspaceCharacter();
   } else if (event.code === 'Delete') {
-    const CURSOR_Index = SCREEN.selectionEnd;
-    const ARR = SCREEN.innerHTML.split('');
-    delete ARR[CURSOR_Index];
-    SCREEN.innerHTML = ARR.join('');
-    SCREEN.selectionStart = CURSOR_Index;
+    deleteCharacter();
   } else if (event.code === 'Space') {
     SCREEN.innerHTML += ' ';
   } else if (event.code === 'Tab') {
@@ -106,13 +106,9 @@ export function mouseEvents() {
           elem == event.target.innerHTML ? (isFunctionalKey = true) : '';
         });
         if (event.target.innerHTML === 'Backspace') {
-          SCREEN.innerHTML = SCREEN.innerHTML.slice(0, SCREEN.innerHTML.length - 1);
+          backspaceCharacter();
         } else if (event.target.innerHTML === 'DEL') {
-          const CURSOR_Index = SCREEN.selectionEnd;
-          const ARR = SCREEN.innerHTML.split('');
-          delete ARR[CURSOR_Index];
-          SCREEN.innerHTML = ARR.join('');
-          SCREEN.selectionStart = CURSOR_Index;
+          deleteCharacter();
         } else if (event.target.innerHTML === '') {
           SCREEN.innerHTML += ' ';
         } else if (event.target.innerHTML === 'Tab') {
@@ -145,4 +141,21 @@ export function mouseEvents() {
       el.classList.remove('active');
     });
   });
+}
+
+function deleteCharacter() {
+  const SCREEN = document.querySelector('textarea');
+  const CURSOR_Index = SCREEN.selectionEnd;
+  const ARR = SCREEN.innerHTML.split('');
+  delete ARR[CURSOR_Index];
+  SCREEN.innerHTML = ARR.join('');
+  SCREEN.selectionStart = CURSOR_Index;
+}
+function backspaceCharacter() {
+  const SCREEN = document.querySelector('textarea');
+  const CURSOR_Index = SCREEN.selectionEnd;
+  const ARR = SCREEN.innerHTML.split('');
+  delete ARR[CURSOR_Index - 1];
+  SCREEN.innerHTML = ARR.join('');
+  SCREEN.selectionStart = CURSOR_Index - 1;
 }
