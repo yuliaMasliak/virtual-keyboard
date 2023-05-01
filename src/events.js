@@ -169,11 +169,11 @@ function addCharacter(character) {
   SCREEN.selectionStart = CURSOR_Index + 1;
 }
 function move(diarection) {
-  if (diarection == 'ArrowLeft' || diarection == '&#8656;') {
+  if (diarection == 'ArrowLeft') {
     const SCREEN = document.querySelector('textarea');
     let CURSOR_Index = SCREEN.selectionStart;
     SCREEN.selectionEnd = CURSOR_Index - 1;
-  } else if (diarection == 'ArrowRight' || diarection == '&#8658;') {
+  } else if (diarection == 'ArrowRight') {
     const SCREEN = document.querySelector('textarea');
     let CURSOR_Index = SCREEN.selectionEnd;
     SCREEN.selectionStart = CURSOR_Index + 1;
