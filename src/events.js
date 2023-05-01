@@ -45,12 +45,7 @@ export function keyDownEvent(event) {
     addCharacter('    ');
   } else if (event.code === 'Enter') {
     addCharacter('&#13;');
-  } else if (
-    event.code === 'ArrowRight' ||
-    event.code === 'ArrowLeft' ||
-    event.code == 'ArrowUp' ||
-    event.code == 'ArrowDown'
-  ) {
+  } else if (event.code === 'ArrowRight' || event.code === 'ArrowLeft') {
     move(event.code);
   } else {
     for (let code of CODES) {
@@ -132,10 +127,6 @@ export function mouseEvents() {
           move('ArrowRight');
         } else if (event.target.innerHTML === '⇐') {
           move('ArrowLeft');
-        } else if (event.target.innerHTML === '⇑') {
-          move('ArrowUp');
-        } else if (event.target.innerHTML === '⇓') {
-          move('ArrowDown');
         } else if (!isFunctionalKey) {
           if (!isCapsLocked) {
             addCharacter(event.target.innerHTML.toLowerCase());
@@ -200,17 +191,5 @@ function move(direction) {
     const SCREEN = document.querySelector('textarea');
     let CURSOR_Index = SCREEN.selectionEnd;
     SCREEN.selectionStart = CURSOR_Index + 1;
-  } else if (direction == 'ArrowDown') {
-    const SCREEN = document.querySelector('textarea');
-    let CURSOR_Index = SCREEN.selectionEnd;
-    if (CURSOR_Index < TEXTAREA_COLS) {
-      SCREEN.selectionStart = CURSOR_Index + TEXTAREA_COLS;
-    }
-  } else if (direction == 'ArrowUp') {
-    const SCREEN = document.querySelector('textarea');
-    let CURSOR_Index = SCREEN.selectionStart;
-    if (CURSOR_Index >= TEXTAREA_COLS) {
-      SCREEN.selectionEnd = CURSOR_Index - TEXTAREA_COLS;
-    }
   }
 }
