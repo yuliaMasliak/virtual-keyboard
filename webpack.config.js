@@ -28,6 +28,9 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin(), new FaviconsWebpackPlugin('./src/assets/favicon-16x16.png')],
+  plugins: [
+    new HtmlWebpackPlugin({ hash: true, title: 'Virtual Keyboard' }),
+    new FaviconsWebpackPlugin('./src/assets/favicon-16x16.png'),
+  ],
   mode: 'development',
 };
