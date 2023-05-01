@@ -1,4 +1,4 @@
-import { CODES, FUNC_KEYS, AUDIO_CLICK } from './environments.js';
+import { CODES, FUNC_KEYS, AUDIO_CLICK, CAPS_LOCK_id } from './environments.js';
 import { switchLanguage } from './pageElements.js';
 
 function playClick() {
@@ -20,11 +20,12 @@ export function keyDownEvent(event) {
   if (event.ctrlKey && event.shiftKey) {
     switchLanguage();
   } else if (event.code === 'CapsLock') {
+    const CAPSLOCK = document.getElementById(CAPS_LOCK_id);
     isCapsLocked = !isCapsLocked;
     if (isCapsLocked) {
-      document.getElementById('29').classList.add('capslocked');
+      CAPSLOCK.classList.add('capslocked');
     } else {
-      document.getElementById('29').classList.remove('capslocked');
+      CAPSLOCK.classList.remove('capslocked');
     }
   } else if (CODES.indexOf(event.code) === 0) {
     SCREEN.innerHTML += '`';
@@ -89,12 +90,13 @@ export function mouseEvents() {
     let isFunctionalKey = false;
     const EL = document.getElementById(event.target.id);
 
-    if (event.target.id === '29') {
+    if (event.target.id === CAPS_LOCK_id) {
+      const CAPSLOCK = document.getElementById(CAPS_LOCK_id);
       isCapsLocked = !isCapsLocked;
       if (isCapsLocked) {
-        document.getElementById('29').classList.add('capslocked');
+        CAPSLOCK.classList.add('capslocked');
       } else {
-        document.getElementById('29').classList.remove('capslocked');
+        CAPSLOCK.classList.remove('capslocked');
       }
     }
     if (+event.target.id > 12) {

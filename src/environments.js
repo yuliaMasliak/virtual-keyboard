@@ -207,3 +207,5 @@ export const KEYS_UA = [
   '&#8659;',
   '&#8658;',
 ];
+
+export const CAPS_LOCK_id = '29';
