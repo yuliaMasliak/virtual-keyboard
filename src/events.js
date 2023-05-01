@@ -10,7 +10,6 @@ export function keyDownEvent(event) {
   const SCREEN = document.querySelector('textarea');
   const ALL_KEYS = document.querySelectorAll('.keyboard__item');
   playClick();
-  const KEY_CODE = event.code;
 
   ALL_KEYS.forEach((el) => {
     if (!el.className.includes('reset') && el.id == CODES.indexOf(event.code)) {
@@ -39,9 +38,11 @@ export function keyDownEvent(event) {
     addCharacter('    ');
   } else if (event.code === 'Enter') {
     addCharacter('\n');
+  } else if (event.code === 'ArrowRight' || event.code === 'ArrowLeft') {
+    move(event.code);
   } else {
     for (let code of CODES) {
-      if (KEY_CODE === code && !FUNC_KEYS.includes(code)) {
+      if (event.code === code && !FUNC_KEYS.includes(code)) {
         ALL_KEYS.forEach((el) => {
           if (CODES.indexOf(code) > 12 && el.id == CODES.indexOf(code) && event.shiftKey) {
             addCharacter(el.innerHTML.toUpperCase());
@@ -111,6 +112,10 @@ export function mouseEvents() {
           addCharacter('    ');
         } else if (event.target.innerHTML === 'Enter') {
           addCharacter('\n');
+        } else if (event.target.innerHTML === '⇒') {
+          move('ArrowRight');
+        } else if (event.target.innerHTML === '⇐') {
+          move('ArrowLeft');
         } else if (!isFunctionalKey) {
           if (!isCapsLocked) {
             addCharacter(event.target.innerHTML.toLowerCase());
@@ -162,4 +167,15 @@ function addCharacter(character) {
   ARR.splice(SCREEN.selectionEnd, 0, character);
   SCREEN.innerHTML = ARR.join('');
   SCREEN.selectionStart = CURSOR_Index + 1;
+}
+function move(diarection) {
+  if (diarection == 'ArrowLeft' || diarection == '&#8656;') {
+    const SCREEN = document.querySelector('textarea');
+    let CURSOR_Index = SCREEN.selectionStart;
+    SCREEN.selectionEnd = CURSOR_Index - 1;
+  } else if (diarection == 'ArrowRight' || diarection == '&#8658;') {
+    const SCREEN = document.querySelector('textarea');
+    let CURSOR_Index = SCREEN.selectionEnd;
+    SCREEN.selectionStart = CURSOR_Index + 1;
+  }
 }
