@@ -11,8 +11,10 @@ import { switchLanguage } from './pageElements.js';
 function playClick() {
   AUDIO_CLICK.play();
 }
+
 let isCapsLocked = false;
 export function keyDownEvent(event) {
+  console.log(event.code);
   event.preventDefault();
   const SCREEN = document.querySelector('textarea');
   const ALL_KEYS = document.querySelectorAll('.keyboard__item');

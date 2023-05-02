@@ -29,7 +29,7 @@ export const CODES = [
   'KeyO',
   'KeyP',
   'BracketLeft',
-  ' BracketRight',
+  'BracketRight',
   'Backslash',
   'Delete',
   'CapsLock',
@@ -54,8 +54,8 @@ export const CODES = [
   'KeyB',
   'KeyN',
   'KeyM',
-  'Period',
   'Comma',
+  'Period',
   'Slash',
   'ArrowUp',
   'ShiftRight',
@@ -63,7 +63,7 @@ export const CODES = [
   'MetaLeft',
   'AltLeft',
   'Space',
-  'AltLeft',
+  'AltRight',
   'ControlRight',
   'ArrowLeft',
   'ArrowDown',
@@ -71,7 +71,7 @@ export const CODES = [
 ];
 
 export const FUNC_KEYS =
-  'Backspace,Tab,Delete,  CapsLock,Enter,ShiftLeft,ShiftRight,ControlLeft, MetaLeft,Space,ControlRight';
+  'Backspace,Tab,Delete,CapsLock,Enter,ShiftLeft,ShiftRight,ControlLeft, MetaLeft,Space,ControlRight,AltRight,AltLeft';
 
 export const KEYS_ENG = [
   ['~`'],
@@ -125,8 +125,8 @@ export const KEYS_ENG = [
   'B',
   'N',
   'M',
-  '.',
   ',',
+  '.',
   '/',
   '&#8657;',
   'Shift',
