@@ -17,11 +17,11 @@ export function keyDownEvent(event) {
   event.preventDefault();
   const SCREEN = document.querySelector('textarea');
   const ALL_KEYS = document.querySelectorAll('.keyboard__item');
-  playClick();
 
   ALL_KEYS.forEach((el) => {
     if (!el.className.includes('reset') && el.id == CODES.indexOf(event.code)) {
       el.classList.add('active');
+      playClick();
     }
   });
   if (event.ctrlKey && event.shiftKey) {
