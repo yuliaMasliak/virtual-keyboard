@@ -1,0 +1,20 @@
+{
+  "parser": "@babel/eslint-parser",
+  "parserOptions": {
+    "sourceType": "module",
+    "allowImportExportEverywhere": true,
+    "ecmaVersion": "latest"
+  },
+
+  "extends": ["airbnb", "prettier"],
+  "plugins": ["prettier"],
+  "rules": {
+    "prettier/prettier": ["error"],
+    "import/extensions": ["error", "ignorePackages"]
+  },
+  "requireConfigFile": false,
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}
